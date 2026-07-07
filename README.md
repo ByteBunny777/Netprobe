@@ -1,4 +1,9 @@
-# NETprobe
+# netprobe
+
+[![C](https://img.shields.io/badge/C-11-00599C?logo=c)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20WSL-lightgrey)](#build)
+[![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)](#why)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](#license)
 
 A small, dependency-free multithreaded TCP port scanner written in plain C
 (POSIX sockets + pthreads). No libpcap, no OpenSSL, no external libraries —
