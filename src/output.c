@@ -12,6 +12,27 @@ int parse_output_format(const char *s, OutputFormat *out) {
     return -1;
 }
 
+/* Escapes a quoted CSV field per RFC 4180: an embedded double quote is
+ * written as two double quotes. Without this, a banner containing a
+ * literal '"' (common in HTTP Server/WWW-Authenticate headers) closes
+ * the quoted field early and the rest -- including any comma in the
+ * banner -- gets misread as extra columns by any CSV parser. */
+static void csv_escape(const char *in, char *out, size_t out_size) {
+    size_t j = 0;
+    for (size_t i = 0; in[i] != '\0'; i++) {
+        char c = in[i];
+        if (c == '"') {
+            if (j + 2 >= out_size) break;
+            out[j++] = '"';
+            out[j++] = '"';
+        } else {
+            if (j + 1 >= out_size) break;
+            out[j++] = c;
+        }
+    }
+    out[j] = '\0';
+}
+
 /* Escapes double quotes for JSON string output. Truncates silently if
  * the banner is implausibly long (shouldn't happen given BANNER_MAX). */
 static void json_escape(const char *in, char *out, size_t out_size) {
@@ -43,13 +64,15 @@ void write_results(FILE *stream, const char *host, const ScanResult *results,
                     r->banner);
         }
     } else if (fmt == OUTPUT_CSV) {
+        char escaped[BANNER_MAX * 2];
         fprintf(stream, "host,port,state,service,banner\n");
         for (size_t i = 0; i < count; i++) {
             const ScanResult *r = &results[i];
             if (!r->is_open && !show_closed) continue;
+            csv_escape(r->banner, escaped, sizeof(escaped));
             fprintf(stream, "%s,%d,%s,%s,\"%s\"\n", host, r->port,
                     r->is_open ? "open" : "closed",
-                    port_service_name(r->port), r->banner);
+                    port_service_name(r->port), escaped);
         }
     } else if (fmt == OUTPUT_JSON) {
         char escaped[BANNER_MAX * 2];
