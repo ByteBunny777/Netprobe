@@ -1,4 +1,4 @@
-# netprobe
+# NETprobe
 
 A small, dependency-free multithreaded TCP port scanner written in plain C
 (POSIX sockets + pthreads). No libpcap, no OpenSSL, no external libraries —
