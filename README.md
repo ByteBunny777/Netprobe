@@ -11,8 +11,7 @@ just `gcc` and a Makefile.
 
 > **Only scan hosts and networks you own or have explicit permission to
 > test.** Scanning systems without authorization may be illegal in your
-> jurisdiction (in Ukraine: Art. 361 of the Criminal Code; similar laws
-> exist almost everywhere). This tool is meant for auditing your own home
+> jurisdiction. This tool is meant for auditing your own home
 > lab, servers, or infrastructure you're responsible for.
 
 ```
