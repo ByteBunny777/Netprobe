@@ -1,4 +1,4 @@
-# netprobe
+# NETprobe
 
 [![C](https://img.shields.io/badge/C-11-00599C?logo=c)](https://en.wikipedia.org/wiki/C11_(C_standard_revision))
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20WSL-lightgrey)](#build)
